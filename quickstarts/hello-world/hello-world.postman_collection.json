@@ -12,14 +12,14 @@
 					"name": "valid requests",
 					"item": [
 						{
-							"name": "/ - Approov token with valid signature and expire time",
+							"name": "Valid signature and expire time for the Approov token",
 							"request": {
 								"method": "GET",
 								"header": [
 									{
 										"key": "Approov-Token",
 										"type": "text",
-										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.c8I4KNndbThAQ7zlgX4_QDtcxCrD9cff1elaCJe9p9U"
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDV9.cG01T9zBv_NzcNdIHU3lWXKNsWoAktOJ9Xt6mA8uTFs"
 									}
 								],
 								"url": {
@@ -39,7 +39,7 @@
 					"name": "invalid requests",
 					"item": [
 						{
-							"name": "/ - missing Approov token",
+							"name": "Missing the Approov token",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -53,7 +53,83 @@
 							"response": []
 						},
 						{
-							"name": "/ - malformed Approov token",
+							"name": "Missing expiration time in Approov Token",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Approov-Token",
+										"type": "text",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6ImFwcHJvb3YifQ.eyJpc3MiOiJhcHByb292LmlvIn0.Hn_t9Mb2ewOLvnXP0FshGZVsOq_CaVQ_ql8P2i6dT3Y"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}",
+									"host": [
+										"{{DOMAIN}}"
+									]
+								},
+								"description": "The Approov Token payload must contain always the mandatory key `exp`, that contains the unix timestamp for the time the token will expire."
+							},
+							"response": [
+								{
+									"name": "Missing expiration time in Approov Token",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Approov-Token",
+												"type": "text",
+												"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6ImFwcHJvb3YifQ.eyJpc3MiOiJhcHByb292LmlvIn0.q9U0X8yzUKRnelO-qdx-FCXB57GdKUicVdz1rCLiOWU"
+											}
+										],
+										"url": {
+											"raw": "{{DOMAIN}}/v1/shapes",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"v1",
+												"shapes"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 17 Feb 2020 15:43:35 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Content-Length",
+											"value": "26"
+										},
+										{
+											"key": "X-Kong-Response-Latency",
+											"value": "1"
+										},
+										{
+											"key": "Server",
+											"value": "kong/1.5.0"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"exp\": \"must be a number\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Malformed Approov token",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -68,19 +144,40 @@
 									"host": [
 										"{{DOMAIN}}"
 									]
-								}
+								},
+								"description": "The JWT token needs to have 3 segments header.payload.signature, otherwise is a malformed token."
 							},
 							"response": []
 						},
 						{
-							"name": "/ - expired Approov token with valid signature",
+							"name": "Invalid signature for the Approov token",
 							"request": {
 								"method": "GET",
 								"header": [
 									{
 										"key": "Approov-Token",
 										"type": "text",
-										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTUwODMzNDkuMzc3NzYyM30.XzZs_ItunAmisfTAuLLHqTytNnQqnwqh0Koh3PPKAoM"
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.RZa3-m4o6R6MSa7Y-k7xaNKucESV7fKgIKdu0ppoCK8"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}",
+									"host": [
+										"{{DOMAIN}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expired Approov token with valid signature",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Approov-Token",
+										"type": "text",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTUwODMzNDl9.Lzb46xYHGtgaykqGyBFoqbRNKGUZAUHe4favDyzz8qw"
 									}
 								],
 								"url": {
@@ -128,14 +225,14 @@
 					"name": "valid requests",
 					"item": [
 						{
-							"name": "/ - Approov token with a token binding that matches the authorization token",
+							"name": "Approov token binding matching the authorization token",
 							"request": {
 								"method": "GET",
 								"header": [
 									{
 										"key": "Approov-Token",
 										"type": "text",
-										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MTgwMTgyMjQuNzgwMzY4LCJwYXkiOiJWUUZGUEpaNjgyYU90eFJNanowa3RDSG15V2VFRWVTTXZYaDF1RDhKM3ZrPSJ9.N-KwuLeUt9s6TDibhX32AIkhobCYVh5-brVESqUxdBk"
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MTgwMTgyMjQsInBheSI6IlZRRkZQSlo2ODJhT3R4Uk1qejBrdENIbXlXZUVFZVNNdlhoMXVEOEozdms9In0.0jTQ798iC3iF5iIOGB6gUyHbWvgZq0ZVYKzL-vsOBuc"
 									},
 									{
 										"key": "Authorization",
@@ -153,14 +250,14 @@
 							"response": []
 						},
 						{
-							"name": "/ - Approov token without the token binding claim",
+							"name": "Valid Approov token without the token binding claim",
 							"request": {
 								"method": "GET",
 								"header": [
 									{
 										"key": "Approov-Token",
 										"type": "text",
-										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.c8I4KNndbThAQ7zlgX4_QDtcxCrD9cff1elaCJe9p9U"
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDV9.cG01T9zBv_NzcNdIHU3lWXKNsWoAktOJ9Xt6mA8uTFs"
 									},
 									{
 										"key": "Authorization",
@@ -185,7 +282,7 @@
 					"name": "invalid requests",
 					"item": [
 						{
-							"name": "/ - missing Approov token",
+							"name": "Missing the Approov token",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -205,7 +302,103 @@
 							"response": []
 						},
 						{
-							"name": "/ - malformed Approov token",
+							"name": "Missing expiration time in Approov Token",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Approov-Token",
+										"type": "text",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwYXkiOiJWUUZGUEpaNjgyYU90eFJNanowa3RDSG15V2VFRWVTTXZYaDF1RDhKM3ZrPSJ9.HwsQ-NWSTKT1VbF_WMyTv7v7x-EHBW1nz6qPKyDZynY"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}",
+									"host": [
+										"{{DOMAIN}}"
+									]
+								},
+								"description": "The Approov Token payload must contain always the mandatory key `exp`, that contains the unix timestamp for the time the token will expire."
+							},
+							"response": [
+								{
+									"name": "Missing expiration time in Approov Token",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Approov-Token",
+												"type": "text",
+												"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6ImFwcHJvb3YifQ.eyJpc3MiOiJhcHByb292LmlvIn0.q9U0X8yzUKRnelO-qdx-FCXB57GdKUicVdz1rCLiOWU"
+											}
+										],
+										"url": {
+											"raw": "{{DOMAIN}}/v1/shapes",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"v1",
+												"shapes"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 17 Feb 2020 15:43:35 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Content-Length",
+											"value": "26"
+										},
+										{
+											"key": "X-Kong-Response-Latency",
+											"value": "1"
+										},
+										{
+											"key": "Server",
+											"value": "kong/1.5.0"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"exp\": \"must be a number\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Missing the token binding header",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Approov-Token",
+										"type": "text",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MTgwMTgyMjQsInBheSI6IlZRRkZQSlo2ODJhT3R4Uk1qejBrdENIbXlXZUVFZVNNdlhoMXVEOEozdms9In0.0jTQ798iC3iF5iIOGB6gUyHbWvgZq0ZVYKzL-vsOBuc"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}",
+									"host": [
+										"{{DOMAIN}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Malformed Approov token",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -230,14 +423,54 @@
 							"response": []
 						},
 						{
-							"name": "/ - Approov token binding not matching the authorization token",
+							"name": "Invalid signature for the Approov token",
 							"request": {
 								"method": "GET",
 								"header": [
 									{
 										"key": "Approov-Token",
 										"type": "text",
-										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODM0NTcuNDg1Mzk1LCJwYXkiOiI1NjZ2UVdhV0dCZ3MrS0U4eXNqVFRQUXRncHVlK1hMTXF4OGVZb2JDckkwPSJ9.v9CxDagzviU6VcilyT7pC793FDzm_bjqG2sQqmmU5GE"
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MTgwMTgyMjQsInBheSI6IlZRRkZQSlo2ODJhT3R4Uk1qejBrdENIbXlXZUVFZVNNdlhoMXVEOEozdms9In0.sq5cQV8b8ZC3vmlR79Q2cQ1Lwu4Acx4BVaJbl2WzXJ4"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}",
+									"host": [
+										"{{DOMAIN}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expired Approov token with valid signature",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Approov-Token",
+										"type": "text",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjEyMDgwMTgyMjQsInBheSI6IlZRRkZQSlo2ODJhT3R4Uk1qejBrdENIbXlXZUVFZVNNdlhoMXVEOEozdms9In0.tQiAutM5PrlriyuK-iV4T2WJmOJwJqoslrCdl4pY6T0"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}",
+									"host": [
+										"{{DOMAIN}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Approov Token binding not matching the authorization token",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Approov-Token",
+										"type": "text",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODM0NTcsInBheSI6IjU2NnZRV2FXR0JncytLRTh5c2pUVFBRdGdwdWUrWExNcXg4ZVlvYkNySTA9In0.VUFjdnBpRe2Ggvy19kKdrqYKd3IJzkZRRyhyY-lu8zo"
 									},
 									{
 										"key": "Authorization",
