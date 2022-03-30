@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2d32902f-dc84-4f6c-adf6-983b557ae03f",
+		"_postman_id": "fdcd5045-083d-4cb6-b973-a234be1d3b6d",
 		"name": "Approov Quickstarts - Hello World",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -31,9 +31,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "invalid requests",
@@ -92,16 +90,13 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "5b4fd692-e380-4a3c-84e6-6bba134c7edd",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -111,15 +106,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "1dedc593-dceb-4617-b796-eeda77d9d797",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Approov Token Binding Protected Server",
@@ -151,17 +144,17 @@
 								}
 							},
 							"response": []
-						},
+						}
+					]
+				},
+				{
+					"name": "invalid requests",
+					"item": [
 						{
-							"name": "/ - Approov token without the token binding claim",
+							"name": "/ - missing Approov token",
 							"request": {
 								"method": "GET",
 								"header": [
-									{
-										"key": "Approov-Token",
-										"type": "text",
-										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.c8I4KNndbThAQ7zlgX4_QDtcxCrD9cff1elaCJe9p9U"
-									},
 									{
 										"key": "Authorization",
 										"type": "text",
@@ -176,19 +169,17 @@
 								}
 							},
 							"response": []
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "invalid requests",
-					"item": [
+						},
 						{
-							"name": "/ - missing Approov token",
+							"name": "/ - Missing the Authorization token",
 							"request": {
 								"method": "GET",
 								"header": [
+									{
+										"key": "Approov-Token",
+										"type": "text",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MTgwMTgyMjQuNzgwMzY4LCJwYXkiOiJWUUZGUEpaNjgyYU90eFJNanowa3RDSG15V2VFRWVTTXZYaDF1RDhKM3ZrPSJ9.N-KwuLeUt9s6TDibhX32AIkhobCYVh5-brVESqUxdBk"
+									},
 									{
 										"key": "Authorization",
 										"type": "text",
@@ -230,6 +221,26 @@
 							"response": []
 						},
 						{
+							"name": "/ - expired Approov token with valid signature",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Approov-Token",
+										"type": "text",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTUwODMzNDkuMzc3NzYyM30.XzZs_ItunAmisfTAuLLHqTytNnQqnwqh0Koh3PPKAoM"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}",
+									"host": [
+										"{{DOMAIN}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "/ - Approov token binding not matching the authorization token",
 							"request": {
 								"method": "GET",
@@ -253,17 +264,39 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "/ - Approov token without the token binding claim",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Approov-Token",
+										"type": "text",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjQ3MDg2ODMyMDUuODkxOTEyfQ.c8I4KNndbThAQ7zlgX4_QDtcxCrD9cff1elaCJe9p9U"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}",
+									"host": [
+										"{{DOMAIN}}"
+									]
+								}
+							},
+							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "d5cc2027-e783-4328-bf52-4acb7c7feaa0",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -273,15 +306,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "985c0ecb-a8a0-48a1-8cec-91cd04e6b642",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Unprotected Server",
@@ -297,6 +328,5 @@
 			},
 			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
